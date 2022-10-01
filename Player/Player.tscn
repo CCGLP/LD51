@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player/Player.cs" type="Script" id=1]
+[ext_resource path="res://Player/player.png" type="Texture" id=2]
+[ext_resource path="res://Player/PistolSword.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 30.0167
+
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 61680
+script = ExtResource( 1 )
+speed = 1700.0
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+position = Vector2( 0, 2 )
+rotation = -0.000777676
+scale = Vector2( 0.4, 0.4 )
+
+[node name="Sprite" type="Sprite" parent="WeaponPivot"]
+position = Vector2( 0, 5 )
+texture = ExtResource( 3 )
+
+[node name="SpawnBulletPoint" type="Node2D" parent="WeaponPivot"]
+position = Vector2( 197.5, 2.5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

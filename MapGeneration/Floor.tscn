@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="NavigationPolygon" id=2]
+vertices = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 ) ]
+
+[node name="Floor" type="NavigationPolygonInstance"]
+navpoly = SubResource( 2 )
