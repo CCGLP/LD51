@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Game/Game.cs" type="Script" id=1]
 [ext_resource path="res://MapGeneration/LineMapGenerator.tscn" type="PackedScene" id=2]
@@ -7,6 +7,15 @@
 [ext_resource path="res://Fonts/mago3.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://UI/heart.png" type="Texture" id=6]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/BulletThrower.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Common/TextUp.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Fonts/mago1.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://square.png" type="Texture" id=11]
+[ext_resource path="res://Sounds/interlude.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Sounds/clock_tick.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Hope/HopeRecolectable.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Hope/HeartRecolectable.tscn" type="PackedScene" id=15]
+[ext_resource path="res://UI/mouse-export.png" type="Texture" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -15,9 +24,27 @@ outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 5 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 140
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 57
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 26
+font_data = ExtResource( 5 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 enemyScene = ExtResource( 7 )
+bulletTrowerScene = ExtResource( 8 )
+textUp = ExtResource( 9 )
+hopeScene = ExtResource( 14 )
+heartScene = ExtResource( 15 )
+numberOfEnemiesPerRound = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+numberOfBulletThrowersPerRound = [ 0, 1, 1, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 1 ]
 
 [node name="Portal" parent="." instance=ExtResource( 4 )]
 
@@ -77,3 +104,124 @@ margin_left = 61.0
 margin_right = 77.0
 margin_bottom = 75.0
 texture = ExtResource( 6 )
+
+[node name="HopeLayout" type="HBoxContainer" parent="CanvasLayer/Control"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 312.0
+margin_top = 50.0
+margin_right = -236.0
+margin_bottom = -85.0
+
+[node name="H" type="Label" parent="CanvasLayer/Control/HopeLayout"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0.180392, 0.152941, 0.682353, 1 )
+margin_top = 144.0
+margin_right = 97.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+text = "H"
+uppercase = true
+
+[node name="H2" type="Label" parent="CanvasLayer/Control/HopeLayout"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0.180392, 0.152941, 0.682353, 1 )
+margin_left = 101.0
+margin_top = 144.0
+margin_right = 198.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+text = "O"
+uppercase = true
+
+[node name="H3" type="Label" parent="CanvasLayer/Control/HopeLayout"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0.180392, 0.152941, 0.682353, 1 )
+margin_left = 202.0
+margin_top = 144.0
+margin_right = 299.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+text = "p"
+uppercase = true
+
+[node name="H4" type="Label" parent="CanvasLayer/Control/HopeLayout"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0.180392, 0.152941, 0.682353, 1 )
+margin_left = 303.0
+margin_top = 144.0
+margin_right = 400.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+text = "E"
+uppercase = true
+
+[node name="InterludePanel" type="TextureRect" parent="CanvasLayer/Control"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 11 )
+expand = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/InterludePanel"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -84.5
+margin_bottom = 54.5
+custom_fonts/font = SubResource( 2 )
+text = "Keep breathing"
+align = 1
+valign = 1
+
+[node name="MousePanel" type="Control" parent="CanvasLayer/Control"]
+margin_left = 420.0
+margin_top = 440.0
+margin_right = 460.0
+margin_bottom = 480.0
+rect_rotation = -0.525672
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MousePanel"]
+margin_left = -65.0
+margin_top = 1.0
+margin_right = 35.0
+margin_bottom = 121.0
+rect_rotation = 16.5896
+rect_pivot_offset = Vector2( 50, 60 )
+texture = ExtResource( 16 )
+expand = true
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/MousePanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 49.0
+margin_top = -22.0
+margin_right = 149.0
+margin_bottom = 98.0
+rect_rotation = -17.2164
+rect_pivot_offset = Vector2( 50, 60 )
+texture = ExtResource( 16 )
+expand = true
+flip_h = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MousePanel"]
+margin_left = -65.667
+margin_top = -36.604
+margin_right = 162.333
+margin_bottom = -14.604
+custom_fonts/font = SubResource( 4 )
+text = "Use both mouse buttons!"
+
+[node name="InterludePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="ClockPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )

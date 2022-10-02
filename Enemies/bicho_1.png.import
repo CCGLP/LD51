@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/heart.png-5fe1f6e7dd80df8acbb6ac96cff1a62c.stex"
+path="res://.import/bicho_1.png-aa72596b0ef81d091074e460c3abe0b5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/heart.png"
-dest_files=[ "res://.import/heart.png-5fe1f6e7dd80df8acbb6ac96cff1a62c.stex" ]
+source_file="res://Enemies/bicho_1.png"
+dest_files=[ "res://.import/bicho_1.png-aa72596b0ef81d091074e460c3abe0b5.stex" ]
 
 [params]
 

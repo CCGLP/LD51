@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Enemy : KinematicBody2D
+public class Enemy : Area2D
 {
     [Signal]
     public delegate void CallEnemyDown(Enemy enemy); 
@@ -27,12 +27,15 @@ public class Enemy : KinematicBody2D
         agent.SetTargetLocation(target); 
     }
 
-
+    public void Destroy()
+    {
+        QueueFree();
+    }
 
     public void Hit()
     {
         EmitSignal("CallEnemyDown", this);
-        QueueFree(); 
+        Destroy(); 
     }
 
     private int framesStuck = 0;
@@ -41,9 +44,21 @@ public class Enemy : KinematicBody2D
     {
         base._PhysicsProcess(delta);
 
+
+    }
+
+    protected void OnVelocityComputed(Vector2 velocity)
+    {
+        this.velocity = velocity; 
+    }
+
+    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(float delta)
+    {
+
         if (agent.IsNavigationFinished())
         {
-            return; 
+            return;
         }
 
         var targetPos = agent.GetNextLocation();
@@ -54,9 +69,8 @@ public class Enemy : KinematicBody2D
             framesStuck++;
             if (framesStuck > 10)
             {
-                GD.Print("Stuck");
                 mod *= -1.2f;
-                framesStuck = 0; 
+                framesStuck = 0;
             }
         }
         else
@@ -68,34 +82,22 @@ public class Enemy : KinematicBody2D
         if (direction.y < 0.01f && direction.y > -0.01f)
         {
             direction.y = 0.1f * mod;
-            framesStuck++; 
+            framesStuck++;
             if (framesStuck > 10)
             {
-                GD.Print("Stuck"); 
                 mod *= -1.2f;
-                framesStuck = 0; 
+                framesStuck = 0;
             }
-            
+
         }
         else
         {
             framesStuck = 0;
-            mod = 1.0f; 
+            mod = 1.0f;
         }
         var velocity = direction * agent.MaxSpeed;
-        
-        MoveAndSlide(velocity); 
 
+        Translate(velocity * delta); 
     }
-
-    protected void OnVelocityComputed(Vector2 velocity)
-    {
-        this.velocity = velocity; 
-    }
-
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
 }
+

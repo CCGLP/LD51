@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Player/player.png" type="Texture" id=2]
 [ext_resource path="res://Player/PistolSword.png" type="Texture" id=3]
+[ext_resource path="res://UI/heart.png" type="Texture" id=4]
+[ext_resource path="res://Player/MeleeArea.cs" type="Script" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 30.0167
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 246.98
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0.00148588, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.652303, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 61680
@@ -30,3 +38,28 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="MeleeArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 61680
+monitoring = false
+monitorable = false
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
+shape = SubResource( 2 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="MeleeArea"]
+emitting = false
+amount = 340
+lifetime = 0.2
+one_shot = true
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 245.0
+direction = Vector2( 2, 3 )
+spread = 126.11
+gravity = Vector2( 0, 0 )
+initial_velocity = 308.13
+scale_amount = 2.0
+scale_amount_curve = SubResource( 3 )

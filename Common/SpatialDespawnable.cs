@@ -10,8 +10,9 @@ public class SpatialDespawnable : Area2D
     [Export]
     protected float timeToDie = 5; 
 
-    private float timer = 0; 
- 
+    protected float timer = 0;
+
+    protected bool spawned = false; 
 
     public override void _Process(float delta)
     {
@@ -26,6 +27,7 @@ public class SpatialDespawnable : Area2D
     public virtual void CallDespawn()
     {
         timer = 0;
+        spawned = false;
         Translate(new Vector2(3000, 3000));
         EmitSignal("Despawn", this);
     }

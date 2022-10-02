@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/breath.ogg-3c66cc563109f1a9b6debd4eddeaaf73.oggstr"
+
+[deps]
+
+source_file="res://Sounds/breath.ogg"
+dest_files=[ "res://.import/breath.ogg-3c66cc563109f1a9b6debd4eddeaaf73.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

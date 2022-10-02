@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Player/Bullet.tscn" type="PackedScene" id=1]
+
+[node name="BulletEnemie" instance=ExtResource( 1 )]
+modulate = Color( 0.792157, 0.698039, 0.0705882, 1 )
+scale = Vector2( 0.963108, 0.997992 )
+collision_layer = 4096
+collision_mask = 97
+bulletSpeed = 1200.0
+normalEnemyColor = Color( 0.792157, 0.0705882, 0.0705882, 1 )
+specialEnemyColor = Color( 0.792157, 0.698039, 0.0705882, 1 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( -2.5, -0.5 )
+scale = Vector2( 1.13031, 0.998079 )

@@ -10,13 +10,9 @@ config_version=4
 
 [application]
 
-config/name="LD51"
-run/main_scene="res://Game/Game.tscn"
+config/name="Avelainho"
+run/main_scene="res://Menu/Menu.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 
 [display]
 
@@ -28,7 +24,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/silent_wolf/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gui]
 
@@ -72,6 +68,11 @@ test={
 shoot={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+melee={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 

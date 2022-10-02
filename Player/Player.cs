@@ -6,15 +6,16 @@ public class Player : KinematicBody2D
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
-
+    [Signal]
+    public delegate void HitPlayer(); 
     // Called when the node enters the scene tree for the first time.
     [Export]
     protected float speed = 100; 
     protected Vector2 actualVelocity;
 
     protected Node2D pivotWeaponPoint;
-    protected Node2D bulletSpawnPoint; 
-
+    protected Node2D bulletSpawnPoint;
+    protected MeleeArea meleeArea; 
     protected Pool2D<Bullet> bulletPool;
 
     protected float stunTime = 3;
@@ -22,7 +23,10 @@ public class Player : KinematicBody2D
     protected float stunSpeedReduction = 200; 
     protected float stunModifier = 1;
     protected float stunAddModifier = 0.2f;
-    public bool realStun = false; 
+    public bool realStun = false;
+
+    
+    protected float meleeAreaTimer = 1.4f; 
     public override void _Ready()
     {
         bulletPool = new Pool2D<Bullet>();
@@ -30,18 +34,17 @@ public class Player : KinematicBody2D
         actualVelocity = Vector2.Zero;
         pivotWeaponPoint = GetNode("WeaponPivot") as Node2D;
         bulletSpawnPoint = GetNode("WeaponPivot/SpawnBulletPoint") as Node2D; 
-        
+        meleeArea = this.GetNodeInChildren<MeleeArea>();
     }
 
+    public void RealStun()
+    {
+        this.actualVelocity = Vector2.Zero;
+        realStun = true; 
+    }
     public void Stun()
     {
-        var tween = CreateTween();
-        realStun = true;
-        actualVelocity = Vector2.Zero;
-        tween.TweenInterval(1);
-        tween.TweenProperty(this, "realStun", false, 0.2f); 
-        stunTimer = stunTime;
-        stunModifier += stunAddModifier; 
+        EmitSignal("HitPlayer"); 
     }
 
     public void RecolocateWhenNewMap(Vector2 newPosition)
@@ -72,6 +75,11 @@ public class Player : KinematicBody2D
         {
             stunTimer -= delta;
             speed = Mathf.Clamp(speed - stunSpeedReduction * stunModifier, 100, this.speed) ;
+        }
+
+        if (meleeAreaTimer > 0)
+        {
+            meleeAreaTimer -= delta; 
         }
 
         if (!realStun)
@@ -107,6 +115,11 @@ public class Player : KinematicBody2D
             {
                 var bullet = bulletPool.Instantiate();
                 bullet.InitBullet(bulletSpawnPoint.GlobalPosition, lookTransform);
+            }
+            if (meleeAreaTimer <= 0f && Input.IsActionJustPressed("melee"))
+            {
+                meleeAreaTimer = 1.4f;
+                meleeArea.ActiveMeleeArea(); 
             }
         }
 

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Enemies/bicho_1.png" type="Texture" id=1]
+[ext_resource path="res://Enemies/bicho_0.png" type="Texture" id=2]
+[ext_resource path="res://Enemies/BulletThrower.cs" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 47.0956
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
+
+[node name="BulletThrower" type="Area2D"]
+collision_layer = 8192
+collision_mask = 2
+script = ExtResource( 3 )
+specialColor = Color( 0.788235, 0.137255, 0.717647, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4 )
+frames = SubResource( 2 )
+frame = 1
+playing = true
